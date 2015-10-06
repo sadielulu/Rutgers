@@ -1,0 +1,101 @@
+Testcase 1 
+SortedListPtr sl1 = SLCreate(compareInts, NULL);
+
+input: ./sl
+output: Does not give enough parameters to create list 
+
+--------------------------------------------------------
+Testcase 2
+SortedListPtr intList = SLCreate(compareInts, destroyBasicTypeNoAlloc);
+	SortedListIteratorPtr SlInt1 = SLCreateIterator(intList);
+	SLNextItem(SlInt1); 
+	SLDestroy(intList);
+
+input: ./sl
+output: Try to make a pointer to an empty list
+--------------------------------------------------------
+
+Testcase 3 STRINGS
+
+	SLInsert(intList5, str3);
+	SLInsert(intList5,str6);
+	SLInsert(intList5,str2);
+input: ./sl
+output:
+	three 
+	four
+	apple
+--------------------------------------------------------
+
+Testcase 4 INTEGER
+	SLInsert(intList4, &y); //7
+	SLInsert(intList4, &g); //4
+	SLInsert(intList4, &h); //5
+input: ./sl
+
+output:
+7
+5
+4
+
+--------------------------------------------------------
+
+Testcase 5 Add item to tail after all items have been returned by iterator.
+
+
+SortedListPtr intList6 = SLCreate(compareInts, destroyBasicTypeAlloc);
+
+	SLInsert(intList6, &x); //5
+	SLInsert(intList6, &y); //7
+	SLInsert(intList6, &n); //11
+	SLInsert(intList6, &m); //10
+	SortedListIteratorPtr iter = SLCreateIterator(intList6);
+	     printf("\n%d\n",*(int*)SLGetItem(iter));
+        void *item;
+        while((item = SLNextItem(iter)) != NULL)
+        {
+        	printf("\n%d\n",*(int*)SLGetItem(iter));
+    	}
+	SLInsert(intList6, &a); //1
+
+input: ./sl
+
+output:
+
+11
+10
+7
+5
+there is no more items in list so you cant move next 
+--------------------------------------------------------
+
+
+Testcase 6 Doubles 
+	SortedListPtr intList7 = SLCreate(compareDoubles, destroyBasicTypeAlloc);
+
+	SLInsert(intList7, &xx); //5
+	SLInsert(intList7, &yy); //7
+	SLInsert(intList7, &nn); //11
+	SLInsert(intList7, &mm); //10
+	    SortedListIteratorPtr iter1 = SLCreateIterator(intList7);
+	     printf("\n%f\n",*(double*)SLGetItem(iter1));
+        void *it;
+        while((item = SLNextItem(iter1)) != NULL){
+        	printf("\n%f\n",*(double*)SLGetItem(iter1));
+        }
+		SLInsert(intList7, &aa);
+}
+
+input: ./sl
+
+output:
+11.000000
+
+10.000000
+
+7.000000
+
+5.000000
+
+there is no more items in list so you cant move next 
+
