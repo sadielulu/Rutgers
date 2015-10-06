@@ -1,3 +1,9 @@
+A list of items 
+they are sorted from highest to lowest 
+compares any types(doubles, floats, ints, strings, etc)
+
+
+
 Testcase 1 
 SortedListPtr sl1 = SLCreate(compareInts, NULL);
 
