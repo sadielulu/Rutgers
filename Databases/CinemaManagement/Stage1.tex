@@ -1,0 +1,131 @@
+\textnormal{
+Getting a realistic project idea that includes potential real world scenarios, with a description of the different user types along with their interactions with the system as well as the system feedback to them, according to their information needs. This stage also requires the specification of the different constraints and restrictions that need to be enforced depending on the different types of user (system interactions). 
+The deliverables for this stage include the following items:
+\begin{itemize} 
+\item{}
+	A general description (in plain English) of the system (understandable by computer illiterate users). 
+\item{}
+	A specific description of 4 types of users (grouped by their data access/update rights).
+\item{}
+	A description of detailed real world scenarios (at least 2 scenarios) representing those typical interactions between the different user types and the system (including inputs and outputs and data types).
+\end{itemize}
+Please insert your deliverables for Stage1 as follows:
+\begin{itemize} 
+\item{The general system description: }
+\textnormal{ A system to track the activity for a movie theater chain.  The system contains the movies the chain's theaters are showing.  Each movie has a title, director, genre, ticket price, location, time, and viewer rating.  Moviegoers are able to create, edit, or delete an account and log in and out of that account.  Within their account, moviegoers can rate movies, buy tickets for a movie showing, and see which movies they have already watched or have tickets for.  Employees of the chain are able to create, delete, and edit movie listings.  They can also access moviegoer information, see how many tickets are being sold for each movie, and see the average rating for each movie.
+}
+\item{The 4 types of users (grouped by their data access/update rights): }
+theatre manager, ticket selling department, theatre manager and audience/moviegoer/client
+\begin{itemize} 
+\item{The Moviegoer's access rights: }
+Can create, delete, and edit their own account information. Can log in and out of their account. When logged in, they can view showings for any theater location, purchase tickets, and rate movies they have seen. Can also see a list of movies they have seen and/or rated, with associated information.
+\item{The Ticket Seller's access rights: }
+Can purchase or refund tickets for any moviegoer within one theater location, modify the tickets. Can see total ticket sales for any movie or showing.
+\item{The Theater manager's access rights: }
+Can create, delete or edit the movie showings for one theater location. Can also view the ticket sales and ratings for any movie shown at that location. theater manager also has a database of workers and can remove and add them.
+\item{The Chain manager's access rights: }
+Can create, delete , or edit the movie information and movies for all theater locations.  Can also view ticket sales and ratings for any movies shown at all locations. Can create, edit, or remove moviegoer's accounts and the information in them. The chain manager can also see the list of employees in each theater and has list of theaters. The chain manager has highest priority.
+\item{The real world scenarios: }
+Please insert the real world scenarios in here, as follows.
+	\begin{itemize} 
+	\item{Scenario 1 moviegoer/audience description: selects movie and time}
+	The audience/moviegoer user who has an account in the system logs in, scrolls through the movies that are showing and picks the movie he/she want to see, they pick a cinema that is closest to them, pick the number of tickets, after moves on to submit payment for the tickets. The ticket sale is counted for as soon as the ticket is bought. An email is sent to the user's email account with their confirmation order letter confirming that the payment went through.
+	\item{System Data Input for Scenario1: }
+	userid, userpassword, movie title, cinemaID ,number of tickets, time
+	\item{Input Data Types for Scenario1: }
+	int, varchar, varchar, int, int, int
+	\item{System Data Output for Scenario1: }
+	userid, movieid, cinemahallid, time
+	\item{Output Data Types for Scenario1: }
+	int, int, int, int
+	\end{itemize}
+	\begin{itemize} 
+	\item{Scenario 2 moviegoer/audience description: registering}
+	The audience/client goes onto our system,that user who is a first time user, registers, fills their desired user name and password , full name and email to where they will get their tickets and all that information about the user is stored in the system.
+	\item{System Data Input for Scenario 2: }
+	userPassword, UserName, emailAddress,  first name , last name
+	\item{Input Data Types for Scenario 2: }
+	varchar , varchar, varchar, varchar, varchar
+	\item{System Data Output for Scenario 2: }
+	user ID, name, last name, 
+	\item{Output Data Types for Scenario 2: }
+	int,varchar ,varchar
+	\end{itemize}
+ 	----------------------------------------------------------------
+	\begin{itemize} 
+	\item{Scenario 1 theater manager description: adding employees to database}
+	The theater manager needs 10 new employees as ushers so he hires them. the theatre manager adds each employee's information to the database. each employee has to meet the requirements the manager puts for them to get the job. the output would be the name, last name and employee ID of each employee as it is added into the system
+	\item{System Data Input for Scenario 1: }
+	adminUser, adminPassword, employee name, employee info, birthdate
+	\item{Input Data Types for Scenario 1: }
+	varchar, varchar, varchar, varchar, int
+	\item{System Data Output for Scenario 1: }
+	employee ID, first name, last name
+	\item{Output Data Types for Scenario 1: }
+	int, varchar, varchar
+	\end{itemize}
+	\begin{itemize} 
+	\item{Scenario 2 theater manager description: remove show time of a movie }
+	A theatre manager has authorization to remove showtimes of a movie that is not doing too well. the theatre manager checks to see which movie is not getting much ticket sales and lessens the amount of show times of that selected movie. the administrator looks for the movie in the database by title and removes one of the showtimes of the movie that is found.
+	\item{System Data Input for Scenario 2: }
+	adminUser, adminPassword, movie title, old time, new time
+	\item{Input Data Types for Scenario 2: }
+	varchar, varchar, varchar, int, int
+	\item{System Data Output for Scenario 2: }
+	movieid, new time, movie name
+	\item{Output Data Types for Scenario 2: }
+	int, int , varchar
+	\end{itemize}
+ 	----------------------------------------------------------------
+	\begin{itemize} 
+	\item{Scenario1 ticket seller description: }
+	A ticket seller is approached by a moviegoer who accidentally purchased a ticket for the wrong movie showing.  The ticket seller can access the moviegoer's account, delete the accidentally purchased ticket, and instead add a ticket for the correct showing.  The ticket seller would do this by looking up the customer's account by their customer ID, subtracting one ticket from the wrong showing, and adding one to the correct showing.  This would also change the total number of tickets sold for both showings.
+	\item{System Data Input for Scenario1: }
+	customerID, movie showing IDs, ticket for first showing-1, ticket for second showing+1 
+	\item{Input Data Types for Scenario1: }
+	int, int, int, int
+	\item{System Data Output for Scenario1: }
+	ticket for first showing-1, ticket for second showing+1, customerID
+	\item{Output Data Types for Scenario1: }
+	int, int, int
+	\end{itemize}
+	\begin{itemize} 
+	\item{Scenario 2 ticket seller  description: }
+	A ticket seller wants to see if a particular movie is selling better at one time than another, and if any are close to selling out.  The seller searches by movie title and looks up the total ticket sales for all showings of that movie.  She can see a list of how many tickets are sold for each showing, and thus know which showings are most popular and if any have reached capacity.  This information is also useful so that the ticket seller can advice moviegoers on which showings are least full and most likely to still have good seats remaining.
+	\item{System Data Input for Scenario1: }
+	movie title 
+	\item{Input Data Types for Scenario1: }
+	varchar
+	\item{System Data Output for Scenario1: }
+	movie title, number of tickets sold
+	\item{Output Data Types for Scenario1: }
+	varchar, int
+	\end{itemize}
+ 	--------------------------------------------------------------
+	\begin{itemize} 
+	\item{Scenario 1 chain manager description: }
+	A chain manager has decided to take a failing movie out of the theater early.  She needs to cancel all future showings.  She first subtracts all advance ticket purchases for future showings, and then removes all future showings for that movie.  The movie is still listed in the database, and information about it still exists, but there are no more showings.  The chain manager still has the ability to add new showings in the future if she changes her mind.
+	\item{System Data Input for Scenario1: }
+	movie title
+	\item{Input Data Types for Scenario1: }
+	varchar
+	\item{System Data Output for Scenario1: }
+	empty list of movie showings 
+	\item{Output Data Types for Scenario1: }
+	int
+	\end{itemize}
+	\begin{itemize} 
+	\item{Scenario 2 chain manager description: }
+	The chain manager wants to know if a movie showing in one theater is worth showing in other branches, too.  She wants to see how high that movie's ticket sales and ratings are, in order to inform her decision.  She looks up the movie and looks at how many tickets it has sold alltogether, so she knows how popular it is, and at how high the rating is, so she knows if people like it or not.  With this information, she can judge how likely the film is to succeed elsewhere
+	\item{System Data Input for Scenario1: }
+	movie title 
+	\item{Input Data Types for Scenario1: }
+	varchar
+	\item{System Data Output for Scenario1: }
+	movie title, number of tickets sold, average rating
+	\item{Output Data Types for Scenario1: }
+	varchar, int, int
+	\end{itemize}
+	\end{itemize}
+\end{itemize}
+}

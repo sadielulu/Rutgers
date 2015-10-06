@@ -1,0 +1,37 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  10 AUG 2015 15:41
+entering extended mode
+ restricted \write18 enabled.
+ file:line:error style messages enabled.
+ %&-line parsing enabled.
+**Stage4.tex
+(./Stage4.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+
+./Stage4.tex:240: LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.240 }
+       
+? 
+./Stage4.tex:240: Emergency stop.
+ ...                                              
+                                                  
+l.240 }
+       
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+ 
+Here is how much of TeX's memory you used:
+ 7 strings out of 493089
+ 271 string characters out of 6134842
+ 60350 words of memory out of 5000000
+ 3591 multiletter control sequences out of 15000+600000
+ 3640 words of font info for 14 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 8i,0n,5p,333b,14s stack positions out of 5000i,500n,10000p,200000b,80000s
+./Stage4.tex:240:  ==> Fatal error occurred, no output PDF file produced!
