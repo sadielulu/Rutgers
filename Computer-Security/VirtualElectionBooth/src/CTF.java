@@ -7,7 +7,6 @@ import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
 	public class CTF extends Thread {
-		
 		private ArrayList<Integer> idList;
 		private int[] voteTally;
 		private Hashtable<Integer, Integer> successfulVotes;
@@ -15,8 +14,8 @@ import javax.net.ssl.SSLSocketFactory;
 		Random randomGen;
 		private SSLServerSocket sslServerSocket;
 		
-	//	public static void main(String args[]) throws IOException{
-/**
+		//	public static void main(String args[]) throws IOException{
+		/**
 		      SSLServerSocketFactory sslserversocketfactoryCLA =
 	                    (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 	            SSLServerSocket sslserversocketCLA =
@@ -31,19 +30,16 @@ import javax.net.ssl.SSLSocketFactory;
 	   	        BufferedReader bufferedreader = new BufferedReader(inputstreamreader); //take these lines out and it runs
 	   	        System.out.println(bufferedreader.readLine());							//take these lines out and it runs but doesnt read from CLA, problem
 	   	        System.out.println("CLA Connection accepted from: "+sslsocketCLA.getInetAddress());
-	   	        
-**/
-		//}
-		
-		public CTF () throws IOException {
+			**/
+		public CTF () throws IOException
+		{
 			randomGen = new Random();
 			successfulVotes = new Hashtable<Integer, Integer>();
 			alreadyVoted = new Hashtable<Integer, Boolean>();
 			voteTally = new int[5];
 			sslServerSocket = (SSLServerSocket) SSLServerSocketFactory.getDefault().createServerSocket(3333);
 		}
-		
-	/*
+		/*
 		//open socket for CLA
 		try {
 			SSLServerSocketFactory CTFServerf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
@@ -79,8 +75,6 @@ import javax.net.ssl.SSLSocketFactory;
 		}
 	*/
 		//Open for CLA
-	
-
 		public boolean boot() {
 			String serverName = "localhost";
 			String temp = "3333";
@@ -103,7 +97,8 @@ import javax.net.ssl.SSLSocketFactory;
 
 		public void run() {
 			boot();
-			while(true) {
+			while(true) 
+			{
 				try {
 					System.out.println("Waiting for client on port: " + sslServerSocket.getLocalPort());
 					Socket server = sslServerSocket.accept();
@@ -111,7 +106,8 @@ import javax.net.ssl.SSLSocketFactory;
 					DataInputStream in = new DataInputStream(server.getInputStream());
 					String input = new String();
 					input = in.readUTF();
-					if (input.equals("CLA")) {
+					if (input.equals("CLA")) 
+					{
 						ObjectInputStream ois = new ObjectInputStream(server.getInputStream());
 						Object obj = new Object();
 						try {
@@ -136,7 +132,8 @@ import javax.net.ssl.SSLSocketFactory;
 						System.out.println("closing");
 						break;
 					}
-					else {
+					else 
+					{
 						StringTokenizer strtok = new StringTokenizer(input, ",");
 						int claID = Integer.parseInt(strtok.nextToken().replaceAll(
 								"\\s", ""));
@@ -147,30 +144,38 @@ import javax.net.ssl.SSLSocketFactory;
 						System.out.println("claID: " + claID + " userID: " + userID
 								+ " voteNum: " + voteNum);
 						boolean registeredUser = false;
-						for (int x = 0; x < idList.size(); x++) {
-							if (claID == idList.get(x)) {
+						for (int x = 0; x < idList.size(); x++) 
+						{
+							if (claID == idList.get(x))
+							{
 								registeredUser = true;
 								break;
 							}
 						}
 						DataOutputStream out = new DataOutputStream(server.getOutputStream());
-						if (registeredUser) {
-							if (alreadyVoted.get(claID) == false) {
-								if (successfulVotes.containsKey(userID) == false) {
+						if (registeredUser) 
+						{
+							if (alreadyVoted.get(claID) == false) 
+							{
+								if (successfulVotes.containsKey(userID) == false)
+								{
 									voteTally[voteNum]++;
 									alreadyVoted.put(claID, true);
 									successfulVotes.put(userID, voteNum);
 									out.writeUTF("success");
 								}
-								else {
+								else
+								{
 									out.writeUTF("that user ID already exists");
 								}
 							}
-							else {
+							else 
+							{
 								out.writeUTF("that validation ID already voted");
 							}
 						}
-						else {
+						else 
+						{
 							out.writeUTF("not a registered validation number");
 						}
 						System.out.println("Votes: " + voteTally[0] + "|"
@@ -191,16 +196,14 @@ import javax.net.ssl.SSLSocketFactory;
 				}
 			}
 		}	
-
-
-
-
-					
 		public static void main(String[] args) {
-			try{	
+			try
+			{	
 				Thread t = new CTF();
 				t.start();
-			} catch (IOException e) {
+			} 
+			catch (IOException e) 
+			{
 				e.printStackTrace();
 			}
 		}
@@ -214,7 +217,8 @@ import javax.net.ssl.SSLSocketFactory;
 		 * @param vote
 		 */
 
-		public boolean checkIfVotedAlready(String name, String lastName,int ID, int validN, String vote){
+		public boolean checkIfVotedAlready(String name, String lastName,int ID, int validN, String vote)
+		{
 			
 			for(int i=0; i<CLA.trustedUsers.size(); i++)
 			{
@@ -232,7 +236,8 @@ import javax.net.ssl.SSLSocketFactory;
 		
 		//whats the point of this if users have to get a valid number to vote in the interface, in the first place?
 		//more authentication?
-		public boolean canVote(int validNum, String name, String lastName){
+		public boolean canVote(int validNum, String name, String lastName)
+		{
 			
 			for(int i=0; i<CLA.trustedUsers.size(); i++)
 			{
@@ -243,9 +248,7 @@ import javax.net.ssl.SSLSocketFactory;
 			}
 			return false; //can vote 
 		}
-		
 		//list is going to have = ID numbers and who the user(ID numbers) voted for , people cant determine who has voted for who
 		//posted at end , so people cant copy, and users can see their vote has been counted 
-		
 	}
 
