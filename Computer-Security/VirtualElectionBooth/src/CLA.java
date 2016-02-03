@@ -29,90 +29,74 @@ public class CLA {
 	//final static String passwd= "123456"; //password
 	
 	//listens to user and can send random valid number to user 
-	public static void listensForClient() throws IOException{
+	public static void listensForClient() throws IOException
+	{
 		SSLServerSocketFactory CLAServerf =(SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 		SSLServerSocket CLAServer1 = (SSLServerSocket) CLAServerf.createServerSocket(12345);
 		SSLSocket CLASocket1=(SSLSocket)CLAServer1.accept();
-		
 		//read from client
 		InputStream is =CLASocket1.getInputStream();
-        InputStreamReader isr = new InputStreamReader(is);
-        BufferedReader br = new BufferedReader(isr);
-        String string= br.readLine();
-  		
-        String name = null, lastName = null;
-        
-        if(string.equalsIgnoreCase("hello, validation number?"))
-        {
-        	
-        	InputStream nis = CLASocket1.getInputStream();
-    		BufferedReader reader = new BufferedReader(new InputStreamReader(nis));
-    		PrintWriter out =new PrintWriter(CLASocket1.getOutputStream(), true);
-
-    		//gets first and last name
-    		out.println("first name and last name: ");
-    		String line = null;
-    		String fullName = null;
-		
-    		line = reader.readLine();
+	       	InputStreamReader isr = new InputStreamReader(is);
+        	BufferedReader br = new BufferedReader(isr);
+        	String string= br.readLine();
+	        String name = null, lastName = null;
+	        if(string.equalsIgnoreCase("hello, validation number?"))
+        	{
+        		InputStream nis = CLASocket1.getInputStream();
+    			BufferedReader reader = new BufferedReader(new InputStreamReader(nis));
+    			PrintWriter out =new PrintWriter(CLASocket1.getOutputStream(), true);
+	   		//gets first and last name
+    			out.println("first name and last name: ");
+    			String line = null;
+    			String fullName = null;
+	    		line = reader.readLine();
     			fullName=line;
     			System.out.println(line);   
     		
-    		if(!fullName.equals(null))
-    		{
-    			//parses line = name, lastname 
-    			for(int i =0; i <fullName.length();i++)
-    			{	
-    				if(fullName.charAt(i)== ' ')
+    			if(!fullName.equals(null))
+    			{
+    				//parses line = name, lastname 
+    				for(int i =0; i <fullName.length();i++)
+    				{	
+    					if(fullName.charAt(i)== ' ')
+    					{
+    						name =fullName.substring(0,i-1);
+    						break;
+    					}
+    					lastName =fullName.substring(i+1,fullName.length()-1);
+    				}    		
+    				//creates user and adds user to list
+    				int a;
+    				if(( a =checkIfVotedAlready(name,lastName))==-1)
     				{
-    					name =fullName.substring(0,i-1);
-    					break;
+    					int x=(int)(Math.random()*100);  
+    	    				//write back to user
+		   	    		while(ifValidationNumberExists(x))
+    	    				{
+    	            				x=(int)(Math.random()*100);        	
+    	    				}
+    	    				out.println(x+"");
+	    				User u = new User(name,lastName, x);
+        				recipients.add(fullName);
+        				trustedUsers.add(u);
+        				listOfValidationNumbers.add(x);
+	    			}
+    				else //its in list but can still change their vote
+    				{
+    					out.println("already in list, just type your validation number to CTF");			
+	    				//start CTF
+    					//shutdownCTF
     				}
-    				lastName =fullName.substring(i+1,fullName.length()-1);
-    			}    		
-    			//creates user and adds user to list
-    			int a;
-    			if(( a =checkIfVotedAlready(name,lastName))==-1)
-    			{
-    				int x=(int)(Math.random()*100);  
-    	        	
-    	    		//write back to user
-    	    		while(ifValidationNumberExists(x))
-    	    		{
-    	            	x=(int)(Math.random()*100);        	
-    	    		}
-    	    		out.println(x+"");
-    	    		
-    				User u = new User(name,lastName, x);
-        			recipients.add(fullName);
-        			trustedUsers.add(u);
-        			listOfValidationNumbers.add(x);
-
     			}
-    			else //its in list but can still change their vote
-    			{
-    				out.println("already in list, just type your validation number to CTF");			
-    				
-    				//start CTF
-    				//shutdownCTF
-    			}
-    		}
-    		
-        	
-    	
-        }
-        else
-        {
-    		//CLASocket1.close();
-    		//return;
-        }
+	        }
+        	else
+        	{
+    			//CLASocket1.close();
+    			//return;
+        	}
 		//CLASocket1.close();
 		//return;
 	}
-	
-	
-
-	
 	/**
 	 * sends list to CTF 
 	 * @throws IOException
@@ -122,16 +106,11 @@ public class CLA {
 
 		SSLSocketFactory s2 =(SSLSocketFactory) SSLSocketFactory.getDefault();
 		SSLSocket Socket2 = (SSLSocket) s2.createSocket("localhost",3333);
-
-         InputStream inputstream = Socket2.getInputStream();
-         InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
-         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-
+	        InputStream inputstream = Socket2.getInputStream();
+        	InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
+         	BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
  		PrintWriter out =new PrintWriter(Socket2.getOutputStream(), true);
  		out.println("can CTF see this");
-
-	     //
-		
 		//SSLServerSocketFactory CLAServerf =(SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 		//SSLServerSocket CLAServer2 = (SSLServerSocket) CLAServerf.createServerSocket(12347);
 		//SSLSocket CLASocket2=(SSLSocket)CLAServer2.accept();
@@ -146,11 +125,8 @@ public class CLA {
 		//converts validation list to bytes and sends to CTF
 		
 		//CLASocket.close();
-
 	}
-	
 	public static int checkIfVotedAlready(String name, String lastName){
-		
 		for(int i=0; i<trustedUsers.size(); i++)
 		{
 			if (trustedUsers.get(i).name.equalsIgnoreCase(name)&& trustedUsers.get(i).lastName.equalsIgnoreCase(lastName))
@@ -166,22 +142,18 @@ public class CLA {
 		{
 			Integer n =listOfValidationNumbers.get(i);
 			return true;
-			
 		}
 		return false;
-		
 	}
 	public static void main(String[]args)throws Exception{
-
-			listensForClient();
-			connectToCTF(); //uncomment when CTF is set up
-			//String trustFilename=pathToStores+"/" +keyStoreFile;
-			//System.setProperty("javax.net.ssl.keystore",trustFilename);
-			//System.setProperty("javax.net.ssl.keyStorePassword", passwd);
-			
-			//java -Djavax.net.ssl.keystore=/tmp/trustFilename
-			//-Djavax.net.ssl.keystorePassword=123456 CLA
-			//new CLA().initServer();
+		listensForClient();
+		connectToCTF(); //uncomment when CTF is set up
+		//String trustFilename=pathToStores+"/" +keyStoreFile;
+		//System.setProperty("javax.net.ssl.keystore",trustFilename);
+		//System.setProperty("javax.net.ssl.keyStorePassword", passwd);
+		//java -Djavax.net.ssl.keystore=/tmp/trustFilename
+		//-Djavax.net.ssl.keystorePassword=123456 CLA
+		//new CLA().initServer();
 	}	
 }
 	
