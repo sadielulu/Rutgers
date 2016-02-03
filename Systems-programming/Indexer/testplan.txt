@@ -1,0 +1,108 @@
+TEST CASE 1:
+
+COMMAND:
+ ./indexer 
+RESULT:
+THIS PROGRAM REQUIRES three ARGUMENTS.
+
+
+TEST CASE 2:
+
+COMMAND:
+./indexer t.txt test666
+RESULT:
+not a file or a directory
+
+
+
+TEST CASE 3:
+
+COMMAND:
+ ./indexer ./indexer t.txt test1.txt
+RESULT:
+FILE ALREADY EXISTS DO YOU WANT TO OVERWRITE? enter yes or no
+
+
+
+TEST CASE 4: test for file and it contains hi my name is $silvia &^**8f
+
+COMMAND: 
+ ./indexer testing.txt test1.txt 
+RESULT:
+{"list": [ 
+ 		{"8f": [ 
+ 				{"test1.txt": 1} 
+ 		]}, 
+ 		{"hi": [ 
+ 				{"test1.txt": 1} 
+ 		]}, 
+ 		{"is": [ 
+ 				{"test1.txt": 1} 
+ 		]}, 
+ 		{"my": [ 
+ 				{"test1.txt": 1} 
+ 		]}, 
+ 		{"name": [ 
+ 				{"test1.txt": 1} 
+ 		]}, 
+ 		{"silvia": [ 
+ 				{"test1.txt": 1} 
+ 		]} 
+ ]} 
+ 
+
+TEST CASE 5: test for directory, test is a directory that has another directories total 3 files 
+
+COMMAND:
+ ./indexer testing.txt test3 
+RESULT:
+{"list": [ 
+ 		{"and": [ 
+ 				{"test1/test1.txt": 1} 
+ 		]}, 
+ 		{"bears": [ 
+ 				{"test1/test1.txt": 1}, 
+ 				{"test3/test4.txt": 1} 
+ 		]}, 
+ 		{"hello": [ 
+ 				{"test3/test4.txt": 3}, 
+ 				{"test1/test1.txt": 1} 
+ 		]}, 
+ 		{"hi": [ 
+ 				{"test1/test1.txt": 2}, 
+ 				{"test3/test4.txt": 2} 
+ 		]}, 
+ 		{"i": [ 
+ 				{"test1/test1.txt": 1}, 
+ 				{"test3/test4.txt": 1} 
+ 		]}, 
+ 		{"j": [ 
+ 				{"test3/tt.txt": 1} 
+ 		]}, 
+ 		{"like": [ 
+ 				{"test3/test4.txt": 1} 
+ 		]}, 
+ 		{"love": [ 
+ 				{"test1/test1.txt": 1} 
+ 		]}, 
+ 		{"mu": [ 
+ 				{"test3/test4.txt": 1} 
+ 		]}, 
+ 		{"penguins": [ 
+ 				{"test1/test1.txt": 1} 
+ 		]}, 
+ 		{"teddy": [ 
+ 				{"test1/test1.txt": 1}, 
+ 				{"test3/test4.txt": 1} 
+ 		]} 
+ ]} 
+ 
+
+TEST CASE 6: larger scale
+
+COMMAND:
+ ./indexer testing.txt test 
+RESULT:
+ test is a directory that has 3 directories and each one has a file except for one directory which is empty 
+ 2 of the files in the directories are java files with large amount of code , and the other one
+ is a simple text file with words 
